@@ -1,0 +1,41 @@
+[image_params]
+
+width = 768
+height = 576  
+
+height_um = 460 
+width_um = 345
+
+num_patients = 22
+num_controls = 20
+
+num_test_patients = 5
+num_test_controls = 4
+num_dmek_patients = 26 
+
+[data_paths]
+
+data_dir_controls = D:\dmek_project\controls\
+data_dir_patients = D:\dmek_project\patients\
+data_dir_dmek = D:\dmek_project\dmek\ 
+data_dir_dmek_fin = D:\dmek_project\dmek_fin\
+data_dir_dmek_copy = D:\dmek_project\dmek3\ 
+
+file_X_train = train_images_all.hdf5
+file_Y_train = train_gts_all.hdf5
+
+file_X_test = test_images_paper1.hdf5
+file_Y_test = test_gts_paper1.hdf5
+
+best_wetghts_file = bestWeights_all.h5
+model_file = model_paper.json
+
+[train_settings]
+
+blur = False
+augment = False
+
+val_split = 0.2
+batch_size = 8
+num_epochs = 1000
+patience = 20
