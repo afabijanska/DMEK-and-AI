@@ -3,7 +3,7 @@
 
 This repository provides a full deep‑learning workflow for automatic detection of endothelial cell centers and estimation of endothelial cell density (ECD) from in vivo confocal microscopy images of patients after **Descemet Membrane Endothelial Keratoplasty (DMEK)**.
 
-The implementation corresponds to the approach des:
+The implementation corresponds to the approach described in the paper:
 
 **Karaca E.E., Fabijańska A., Oztoprak K., et al.
 *Deep Learning for Assessing Corneal Endothelial Cell Density in Patients After Descemet Membrane Endothelial Keratoplasty: Towards Improved Evaluation.* (2026)**
