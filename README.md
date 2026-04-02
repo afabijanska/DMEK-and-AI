@@ -3,15 +3,23 @@
 
 This repository provides a full deep‑learning workflow for automatic detection of endothelial cell centers and estimation of endothelial cell density (ECD) from in vivo confocal microscopy images of patients after **Descemet Membrane Endothelial Keratoplasty (DMEK)**.
 
-The implementation corresponds to:
+The implementation corresponds to the approach des:
 
 **Karaca E.E., Fabijańska A., Oztoprak K., et al.
-*Deep Learning for Assessing Corneal Endothelial Cell Density in Patients After Descemet Membrane Endothelial Keratoplasty.* (2024)**
+*Deep Learning for Assessing Corneal Endothelial Cell Density in Patients After Descemet Membrane Endothelial Keratoplasty: Towards Improved Evaluation.* (2026)**
 
 ---
 
 # 📂 Dataset Directory Structure (Generalized)
-Below is the full directory tree based on the real dataset layout.
+
+Below is the directory tree based on the real dataset layout. **⚠️ This exact structure is REQUIRED by the code.**
+
+All preprocessing, training, prediction, and density‑analysis scripts rely on:
+- specific folder names,  
+- specific subfolder names (`bw/`, `org/`),  
+- specific month‑based and eye-side‑based folder naming conventions,  
+- separation of patient/control data,  
+- presence of prediction output folders used as inputs for later steps.
 
 ```
 D:/
@@ -26,12 +34,11 @@ D:/
 │
 ├── patients/
 │   ├── patient-1/
-│   │   ├── patient-1 1.month/bw, org
+│   │   ├── patient-1 1.month/bw, org 
 │   │   ├── patient-1 6.month/bw, org
 │   │   └── patient-1 9.month/bw, org
 │   ├── patient-2/
-│   ├── ...
-│   └── patient-26/
+│   └── ...
 │
 ├── patients_bw/
 ├── patients_preds/
@@ -39,16 +46,14 @@ D:/
 ├── control_preds/
 │
 ├── dmek/
-│   ├── patient-1/<eye> <month>.month/
+│   ├── patient-1/<eye> dmek <month>.month/ #eg. patient-3 left dmek 15.month
 │   ├── patient-2/
-│   ├── ...
-│   └── patient-26/
+│   └── ...
 │
 ├── dmek3/
-│   ├── patient-1/<month>/mask+overlay
+│   ├── patient-1/<eye> <month>.month/
 │   ├── patient-2/
-│   ├── ...
-│   └── patient-26/
+│   └── ...
 │
 ├── dmek_fin/
 ├── dmek_fin_images/
@@ -61,19 +66,20 @@ D:/
 
 # 🧠 Pipeline Overview
 ```
-Raw Images
- ↓
-Training Dataset (HDF5)
- ↓
+      Raw Images
+           ↓
+  Training Dataset (HDF5)
+           ↓
 Attention U‑Net Model Training
- ↓
-Full‑Image Prediction
- ↓
+           ↓
+   Images Prediction
+           ↓
 ROI Extraction + Cell Counting
- ↓
-ECD Density Calculation
- ↓
-CSV + XLSX Reports + Visualizations
+           ↓
+  ECD Density Calculation
+           ↓
+CSV Reports + Visualizations
+
 ```
 
 ---
@@ -82,7 +88,7 @@ CSV + XLSX Reports + Visualizations
 - AttUNet.py — Attention U-Net definitions
 - configuration.txt — dataset paths & parameters
 - helpers.py — HDF5 utilities
-- get_train_data.py — builds HDF5 datasets
+- get_train_data.py — builds HDF5 datasets from expert annotated images (cell centers, annotations in pure blue) 
 - train_full_images.py — trains the model
 - predict_patient_full_image.py — inference
 - density_from_predicted_patients.py — ROI + density calculations
@@ -96,14 +102,6 @@ Generated outputs:
 - average_densities.xlsx
 
 ---
-# 🔧 Installation
-```
-git clone <repo>
-pip install -r requirements.txt
-```
-Update configuration.txt accordingly.
-
----
 # 🚀 Usage
 ```
 python get_train_data.py
@@ -114,17 +112,13 @@ python density_from_predicted_patients.py
 
 ---
 # 📄 Citation
-Karaca E.E., Fabijańska A., Oztoprak K., et al. (2024)
+Karaca E.E., Fabijanska A., Oztoprak K., et al. (2026)
 
 ```
-@article{karaca2024dmekecd,
- title={Deep Learning for Assessing Corneal Endothelial Cell Density in Patients After Descemet Membrane Endothelial Keratoplasty},
- author={Karaca, Emine Esra and Fabijańska, Anna and Oztoprak, Kasım and Işık, Feyza Dicle and Ustael, Ayça Bulut and Kemer, Özlem Evren and Hassanpour, Reza},
- year={2024},
- journal={To Appear}
+@article{karaca2026dmekecd,
+ title = {Deep Learning for Assessing Corneal Endothelial Cell Density in Patients After Descemet Membrane Endothelial Keratoplasty: Towards Improved Evaluation},
+ author = {Karaca, Emine Esra and Fabijańska, Anna and Oztoprak, Kasım and Işık, Feyza Dicle and Ustael, Ayça Bulut and Kemer, Özlem Evren and Hassanpour, Reza},
+ year = {2026},
+ journal = {To Appear}
 }
 ```
-
----
-# 📜 License
-TBD
